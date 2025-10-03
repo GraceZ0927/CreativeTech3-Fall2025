@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>Get your random joke today!</h1>
+        <h3>Start here:</h3>
+        <button id="FetchAJoke">Try-it-now!</button>
+    </header>
+    <main id="main-content">
+    </main>
+    <script>
+        const jokeButton = document.getElementById('FetchAJoke')
+        const mainContent = document.getElementById('main-content')
+
+        jokeButton.addEventListener('click', ()=>{
+            fetch('https://official-joke-api.appspot.com/random_joke')
+                .then((response => response.json()))
+                .then((data) => {
+                    console.log(data)
+                    let jokeSetup = data.setup
+                    let jokePunchline = data.punchline
+
+                    let jokeHTML = `
+                        <h2>${jokeSetup}</h2>
+                        <p>${jokePunchline}</p>
+                    `
+                    mainContent.innerHTML = jokeHTML
+                    
+                })
+        })
+    </script>
+</body>
+</html>
+
