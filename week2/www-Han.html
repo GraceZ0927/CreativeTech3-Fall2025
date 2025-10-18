@@ -32,8 +32,7 @@
         <h1>Daily Recommend</h1>
         <h4>Enter your mood then get a album recommendation and get some photos from the debut day!</h4>
         <h3>
-            Let's get started.
-            Try: excited, relaxed, sad, focused, calm
+            Let's get started!
         </h3>
         <input type="text" id="mood-input" >
         <button id="recommend-button">Recommend me</button>
@@ -80,7 +79,7 @@
             }
 
             const fetchAlbum = () => {
-                const moodInput = document.getElementById('mood-input').value.toLowerCase().trim();
+                const moodInput = document.getElementById('mood-input').value.toLowerCase().trim()
                 const MOOD_TO_GENRE = {
                 'excited': 'dance',
                 'relaxed': 'ambient',
@@ -99,8 +98,8 @@
                 console.log('Mapped genre:',genre)
 
                 if (!genre) {
-                    mainContent.innerHTML = '<p>Please enter a valid mood</p>';
-                    return;
+                    mainContent.innerHTML = '<p>Please enter a valid mood</p>'
+                    return
                 }
 
                 getSpotifyToken()
@@ -139,6 +138,8 @@
                         let ReleaseDate = album.release_date
                         console.log(ReleaseDate)
                         mainContent.innerHTML = albumHTML
+
+                        fetchNASAPic(ReleaseDate)
                     })
                     .catch(error => {
                         console.error('Error fetching album:', error);
@@ -146,11 +147,79 @@
                     })
             }
 
-            const fetchNASAPic = (requestDate) => {
-                fetch('https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&camera=CHEMCAM&api_key=98QP0KCs9loJEHtuVX2nGqjWAgAtesoe4Zo14mad' + requestDate)
+            const fetchNASAPic = (ReleaseDate) => {
+                console.log('Fetching Mars photos for the date: ', ReleaseDate)
+
+                if (!ReleaseDate || ReleaseDate.length < 10) {
+                    console.log('Invalid release date format.:', ReleaseDate)
+                    const message = document.createElement('p')
+                    message.innerHTML = 'Invalid release date format.'
+                    mainContent.appendChild(message)
+                    return;
+                }
+
+                const formattedDate = ReleaseDate.substring(0, 10)
+                console.log('Formatted date for NASA API:', formattedDate)
+
+                const albumDate = new Date(formattedDate)
+                const roverLandingDate = new Date('2012-08-06')
+
+                if (albumDate < roverLandingDate) {
+                    console.log('Release date is before Curiosity rover landing. No photos available.')
+                    const message = document.createElement('p')
+                    albumDate = 2020-01-01
+                    mainContent.appendChild(message)
+                    return;
+                }
+
+                const nasaURL = `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=${formattedDate}&api_key=98QP0KCs9loJEHtuVX2nGqjWAgAtesoe4Zo14mad`
+                console.log('NASA API URL:', nasaURL)
+
+                fetch(nasaURL)
+            .then(response => {
+                console.log('Response status:', response.status);
+                
+                return response.json();
+            })
+            .then(data => {
+                console.log('NASA API Response:', data);
+                
+                if (!data.photos || data.photos.length === 0) {
+                    console.log('No photos found for this date');
+                    const message = document.createElement('p');
+                    message.innerHTML = `No Mars photos taken on that date. </span>`;
+                    mainContent.appendChild(message);
+                    return;
+                }
+                
+                const randomIndex = Math.floor(Math.random() * data.photos.length);
+                const photo = data.photos[randomIndex];
+                
+                console.log('Selected photo:', photo);
+                
+                const nasaHTML = `
+                    <div style="margin-top: 30px; padding: 15px; border: 1px solid #282828; border-radius: 8px; background-color: #181818;">
+                        <h3 style="color: #8ACE00;"> Mars Photo from ${formattedDate}</h3>
+                        <img src="${photo.img_src}" alt="Mars Rover Photo" >
+                        <p><strong>Camera:</strong> ${photo.camera.full_name}</p>
+                        <p><strong>Earth Date:</strong> ${photo.earth_date}</p>
+                    </div>
+                `;
+                
+                mainContent.innerHTML += nasaHTML;
+            })
+            .catch(error => {
+                console.error('NASA API Error:', error);
+                const errorMessage = document.createElement('p');
+                errorMessage.innerHTML = `<span style="color: #ff6b6b;">Error loading Mars photo: ${error.message}</span>`;
+                mainContent.appendChild(errorMessage);
+            });
+
             }
 
             recommendButton.addEventListener('click', fetchAlbum)
+
+
         </script>
     </header>
 </body>
