@@ -442,31 +442,6 @@
                 dropRadius: 20,
                 perturbance: 0.04
             })
-
-        $(document).ready(function() {
-            
-            $('.bg').ripples({
-                resolution: 512,
-                dropRadius: 20,
-                perturbance: 0.04
-            })
-            
-            // 添加这段测试代码
-            console.log('Ripples methods:', $('.bg').data())
-            
-            // 测试：3秒后自动产生一个波纹
-            setTimeout(function() {
-                console.log('Creating test ripple...')
-                $('.bg').ripples('drop', 
-                    $(window).width() / 2,   // 屏幕中心 X
-                    $(window).height() / 2,  // 屏幕中心 Y
-                    30, 
-                    0.08
-                )
-                console.log('Test ripple created')
-            }, 3000)  // 3秒后执行
-            
-        })
             
             // 添加这段 - 鼠标点击产生波纹
             $('.bg').on('click', function(e) {
