@@ -432,17 +432,11 @@
                 perturbance: 0.08     // 扰动强度（波纹的强度）
             })
 
-            // 添加这段 - 鼠标点击产生波纹
-            $('.bg').on('click', function(e) {
-                // 在点击位置产生波纹
-                $(this).ripples('drop', e.pageX, e.pageY, 20, 0.04)
-            })
-
             // 鼠标移动时偶尔产生波纹
                 $(document).on('mousemove', function(e) {
                     // 2% 的概率产生波纹（避免太密集）
-                    if (Math.random() > 0.98) {
-                        $('.bg').ripples('drop', e.pageX, e.pageY, 10, 0.02)
+                    if (Math.random() > 0.80) {
+                        $('.bg').ripples('drop', e.pageX, e.pageY, 18, 0.08)
                     }
             })
             
