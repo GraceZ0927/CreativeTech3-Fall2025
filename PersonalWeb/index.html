@@ -428,11 +428,11 @@
             // 初始化水波纹效果
             $('.bg').ripples({
                 resolution: 512,      // 分辨率（越高越清晰，但越耗性能）
-                dropRadius: 24,       // 水滴半径
-                perturbance: 0.06     // 扰动强度（波纹的强度）
+                dropRadius: 18,       // 水滴半径
+                perturbance: 0.04     // 扰动强度（波纹的强度）
             })
 
-            // 鼠标点击时偶尔产生波纹
+            // 鼠标时偶尔产生波纹
                 $(document).on('mousemove', function(e) {
                     if (Math.random() > 0.80 && Math.random() <= 0.90) {
                         $('.bg').ripples('drop', e.pageX, e.pageY, 18, 0.04)
