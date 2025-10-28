@@ -433,15 +433,15 @@
             })
 
             // 鼠标点击时偶尔产生波纹
-                $(document).on('click', function(e) {
-                    if (Math.random() > 0.50 && Math.random() <= 0.80) {
-                        $('.bg').ripples('drop', e.pageX, e.pageY, 24, 0.06)
-                    }
-                    else if (Math.random() > 0.80 && Math.random() <= 0.90) {
+                $(document).on('mousemove', function(e) {
+                    if (Math.random() > 0.80 && Math.random() <= 0.90) {
                         $('.bg').ripples('drop', e.pageX, e.pageY, 18, 0.04)
                     }
+                    else if (Math.random() > 0.90 && Math.random() <= 0.95) {
+                        $('.bg').ripples('drop', e.pageX, e.pageY, 12, 0.02)
+                    }
                     else {
-                        $('.bg').ripples('drop', e.pageX, e.pageY, 12, 0.03)
+                        $('.bg').ripples('drop', e.pageX, e.pageY, 8, 0.005)
                     }
             })
         })
