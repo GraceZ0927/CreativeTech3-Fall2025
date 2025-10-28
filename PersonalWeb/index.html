@@ -36,30 +36,6 @@
             z-index: -1;
         }
 
-        /* 水波流动动画 */
-        @keyframes water-flow {
-            0% {
-                transform: translate(0, 0) scale(1.1) rotate(0deg);
-                filter: hue-rotate(0deg) brightness(1);
-            }
-            25% {
-                transform: translate(2%, -1%) scale(1.12) rotate(0.5deg);
-                filter: hue-rotate(5deg) brightness(1.05);
-            }
-            50% {
-                transform: translate(1%, 2%) scale(1.08) rotate(0deg);
-                filter: hue-rotate(0deg) brightness(1.1);
-            }
-            75% {
-                transform: translate(-2%, 1%) scale(1.11) rotate(-0.5deg);
-                filter: hue-rotate(-5deg) brightness(1.05);
-            }
-            100% {
-                transform: translate(0, 0) scale(1.1) rotate(0deg);
-                filter: hue-rotate(0deg) brightness(1);
-            }
-        }
-
         nav {
             display: flex;
             justify-content: space-between;
@@ -312,12 +288,12 @@
     <section class="projects">
 
         <div class="project">
-            <div class="project-img">
+            <a href="wonderland.html" class="project-img">
                 <img src="pics/wonderland-cover2.png" alt="Wonderland">
-            </div>
+            </a>
             <div class="project-info">
                 <div class="project-label">Individual Work</div>
-                <h2>Wonderland</h2>
+                <h2><a href="wonderland.html">Wonderland</a></h2>
                 <div class="date">March 2024 - July 2024</div>
                 <p>Wonderland is a service that connects artists with inspiration from people's dreams through a community platform and a sleep mask.</p>
                 <p>The mask, equipped with LiDAR sensors, tracks eye movements to capture people's dreams, while the DALL-E AI model generates adjustable visual moon symbols from the data.</p>
